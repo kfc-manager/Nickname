@@ -1,0 +1,10 @@
+name: Nickname
+version: '${project.version}'
+main: kalle.com.nickname.Nickname
+api-version: 1.13
+commands:
+  nickname:
+    usage: |
+            /nickname <nickname> 
+            /nickname <nickname> <player name>
+    description: Changes the by the server displayed name of the player.
