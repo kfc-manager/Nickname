@@ -1,6 +1,7 @@
 package kalle.com.nickname.util;
 
 import kalle.com.nickname.Nickname;
+import org.apache.commons.lang.ObjectUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -58,6 +59,7 @@ public class Config {
         }
         config.set(uuid + ".Account Name", player.getName());
         config.set(uuid + ".Nickname", player.getName());
+        config.set(uuid + ".Color", "WHITE");
         save();
         return player.getName();
     }
@@ -67,5 +69,19 @@ public class Config {
         config.set(uuid + ".Nickname", nickname);
         save();
     }
+
+    public static ChatColor getColor(Player player) {
+        String uuid = player.getUniqueId().toString();
+        try {
+            String entry = config.get(uuid + ".Color").toString();
+            MyColor color = MyColor.valueOf(entry);
+            return color.getColor();
+        } catch (NullPointerException | IllegalArgumentException e) {
+            plugin.getServer().getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[Nickname]" + ChatColor.RED + " CONFIG ERROR: could not read nickname.yml file, an entry is corrupted!");
+        }
+        return ChatColor.WHITE;
+    }
+
+
 
 }

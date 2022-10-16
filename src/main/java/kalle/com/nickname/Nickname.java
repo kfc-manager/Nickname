@@ -21,9 +21,7 @@ public final class Nickname extends JavaPlugin {
         registerCommands();
         //in case of a server reload updates all online player names
         for (Player online : Bukkit.getOnlinePlayers()) {
-            String nickname = config.getNick(online);
-            online.setDisplayName(nickname);
-            online.setPlayerListName(nickname);
+            rename(online);
         }
         getServer().getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[Nickname]" + ChatColor.GREEN + " Plugin has been enabled!");
     }
@@ -46,8 +44,9 @@ public final class Nickname extends JavaPlugin {
 
     public static void rename(Player player) {
         String nickname = Config.getNick(player);
-        player.setDisplayName(nickname);
-        player.setPlayerListName(nickname);
+        ChatColor color = Config.getColor(player);
+        player.setDisplayName(color + nickname + ChatColor.RESET);
+        player.setPlayerListName(color + nickname + ChatColor.RESET);
     }
 
 }
