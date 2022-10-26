@@ -52,7 +52,7 @@ public class Config {
             if (config.get(uuid) != null) {
                 config.set(uuid + ".Account Name", player.getName()); //in case player changed his account name to keep the entries up to date
                 save();
-                return config.get(uuid + ".Nickname").toString();
+                return config.getString(uuid + ".Nickname");
             }
         } catch (NullPointerException e) {
             plugin.getServer().getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[Nickname]" + ChatColor.RED + " CONFIG ERROR: could not read nickname.yml file, an entry is corrupted!");
@@ -73,7 +73,7 @@ public class Config {
     public static ChatColor getColor(Player player) {
         String uuid = player.getUniqueId().toString();
         try {
-            String entry = config.get(uuid + ".Color").toString();
+            String entry = config.getString(uuid + ".Color");
             MyColor color = MyColor.valueOf(entry);
             return color.getColor();
         } catch (NullPointerException | IllegalArgumentException e) {
